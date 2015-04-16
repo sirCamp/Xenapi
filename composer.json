@@ -1,7 +1,8 @@
 {
     "name": "sircamp/xenapi",
     "description": "A Xen PHP API for managment of Hypervisor and their Virtual Machine for Laravel",
-    "keywords": ["laravel","xen","phpxenapi","api","citrix","citrix api"],
+    "keywords": ["laravel","xen","phpxenapi","api","citrix","citrixapi","xmlrpc","vps","hypervisor"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Stefano Campese",
