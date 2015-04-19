@@ -22,7 +22,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMHardReboot(){
+	public function hardReboot(){
 		
 		return $this->getXenconnection()->VM__hard_reboot($this->getVmId());
 	}
@@ -34,7 +34,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMHardShutdown(){
+	public function hardShutdown(){
 		return $this->getXenconnection()->VM__hard_shutdown($this->getVmId());
 	}
 
@@ -45,7 +45,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMSuspend(){
+	public function suspend(){
 		return $this->getXenconnection()->VM__suspend($this->getVmId());
 	}
 
@@ -56,7 +56,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMResume(){
+	public function resume(){
 		return $this->getXenconnection()->VM__resume($this->getVmId());
 	}
 
@@ -67,7 +67,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMCleanReboot(){
+	public function cleanReboot(){
 		return $this->getXenconnection()->VM__clean_reboot($this->getVmId());
 	}
 
@@ -78,7 +78,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMCleanShutdown(){
+	public function cleanShutdown(){
 		return $this->getXenconnection()->VM__clean_shutdown($this->getVmId());
 	}
 
@@ -90,7 +90,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMPause(){
+	public function pause(){
 		return $this->getXenconnection()->VM__pause($this->getVmId());
 	}
 
@@ -101,7 +101,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMUnpuse(){
+	public function unpuse(){
 		return $this->getXenconnection()->VM__unpause($this->getVmId());
 	}
 
@@ -113,7 +113,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMStart( $pause = false, $force = true){
+	public function start( $pause = false, $force = true){
 
 		return $this->getXenconnection()->VM__start($this->getVmId(),$pause,$force);
 	}
@@ -125,7 +125,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function VMClone($name){
+	public function clone($name){
 		return $this->getXenconnection()->VM__clone($this->getVmId(),$name);
 	}
 
@@ -136,7 +136,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	function VMGetUUID(){
+	function getUUID(){
 		return $this->getXenconnection()->VM__get_uuid($this->getVmId());
 	}
 	
@@ -147,7 +147,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	function VMGetConsoles(){
+	function getConsoles(){
 		return $this->getXenconnection()->VM__get_consoles($this->getVmId());
 	}
 
@@ -158,7 +158,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	function VMGetConsolesUUID($connection,$CN){
+	function getConsolesUUID($connection,$CN){
 		return $this->getXenconnection()->console__get_uuid($CN);
 	}
 
@@ -169,7 +169,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	function VMGetPowerState(){
+	function getPowerState(){
 		return $this->getXenconnection()->VM__get_power_state($this->getVmId());
 	}
 
@@ -181,7 +181,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	function VMGetGuestMetrics(){
+	function getGuestMetrics(){
 		$VMG = $this->getXenconnection()->VM__get_guest_metrics($this->getVmId());
 		return $this->getXenconnection()->VM_guest_metrics__get_record($VMG->getValue());
 	}
@@ -193,7 +193,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	function VMGetMetrics(){
+	function getMetrics(){
 		$VMG = $this->getXenconnection()->VM__get_metrics($this->getVmId());
 		
 		return $this->getXenconnection()->VM_metrics__get_record($VMG->getValue());
@@ -207,7 +207,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return XenResponse $response
 	 */
-	function VMGetStats(){
+	function getStats(){
 
 		$user = $this->getXenconnection()->getUser();
 		$password = $this->getXenconnection()->getPassword();
@@ -247,7 +247,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return XenResponse $response
 	 */
-	function VMGetDiskSpace($size = NULL){
+	function getDiskSpace($size = NULL){
 		$VBD = $this->getXenconnection()->VBD__get_all();
 		$memory = 0; 
 		foreach ($VBD->getValue() as $bd) {

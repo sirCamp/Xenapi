@@ -14,10 +14,10 @@ class XenConnection {
 
 	function __construct(){
     
-        $this->_session_id = null;
-        $this->_url = null;
-        $this->_user = null;
-        $this->_password = null;
+        $this->session_id = null;
+        $this->url = null;
+        $this->user = null;
+        $this->password = null;
 
     }
 
