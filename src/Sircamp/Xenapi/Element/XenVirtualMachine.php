@@ -125,7 +125,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function clone($name){
+	public function clonevm($name){
 		return $this->getXenconnection()->VM__clone($this->getVmId(),$name);
 	}
 
