@@ -27,6 +27,6 @@
         }
     },
     "suggest": {
-        "nesbot/carbon": "A simple API extension for DateTime.",
+        "nesbot/carbon": "A simple API extension for DateTime."
     }
 }
