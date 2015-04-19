@@ -1,7 +1,8 @@
 {
     "name": "sircamp/xenapi",
-    "description": "A Xen PHP API for managment of Hypervisor and their Virtual Machine for Laravel",
+    "description": "A Xen PHP API for managment of Hypervisor and their Virtual Machine for php",
     "keywords": ["laravel","xen","phpxenapi","api","citrix","citrixapi","xmlrpc","vps","hypervisor"],
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
@@ -26,6 +27,6 @@
         }
     },
     "suggest": {
-
+        "nesbot/carbon": "A simple API extension for DateTime.",
     }
 }
