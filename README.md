@@ -43,22 +43,112 @@ This serves to have a virtual machine (by the hostname) that is on selected hype
 $vm = $xen->getVMByNameLabel("virtual.machine.hostanme");
 ```
 
+#### Virtual Machine Managment
+
 Now you have the an XenVirtualMachine object that map your virtual machine, so we are ready to manage the VM
 
 ##### Start VM
 
+This method starts a stopped VM
+
 ```php
 $vm->start(); 
 ```
+You can, also, pass two parameters at this method:
+```php
+$pause = true; // start VM in pause status , dafault is false
+$force = true; // force the boot of VM, default is true
+$vm->start($pause, $force); 
+```
 
 ##### Shutdown VM
+
+This method sends a shutdown command to the Virtual Machine
 
 ```php
 $vm->cleanShutdown(); 
 ```
 
-##### HardShutdown VM
+##### Hard Shutdown VM
+This method immediatly a shutdown  the Virtual Machine
 
 ```php
 $vm->hardShutdown(); 
+```
+
+##### Reboot VM
+This method sends a reboot command to the Virtual Machine
+```php
+$vm->cleanShutdown(); 
+```
+
+##### Hard Reboot VM
+
+This method immediatly restarts  the Virtual Machine
+
+```php
+$vm->hardShutdown(); 
+```
+
+##### Suspend VM
+
+This method puts Virtual Machine in a suspend mode (read the Citrix manual)
+
+```php
+$vm->suspend(); 
+```
+
+##### Resume VM
+
+This method resumes a Virtual Machine that is in a suspend mode (read the Citrix manual)
+
+```php
+$vm->resume(); 
+```
+
+##### Pause VM
+
+This method puts a Virtual Machine in pause 
+
+```php
+$vm->pause(); 
+```
+
+##### Unpause VM
+
+This method restores a Virtual Machine that is in pause
+
+```php
+$vm->unpause(); 
+```
+
+##### Clone VM
+
+This method clones the selected Virtual Machine into another ( please check if your hypervisor supports another machine).
+
+before this, you must stop the virtual machine that you want clone
+
+```php
+$name = "new_cloned_vm"; // name of cloned vm
+$vm->cleanShudown(); // stop  vm
+$vm->clonevm($name); 
+```
+
+##### Power Status of VM
+
+This method gets the power status of the selected Virtual Machine 
+
+```php
+
+$vm->getPowerState();
+
+```
+
+##### UUID of VM
+
+This method obtains the UUID of the selected Virtual Machine.
+
+
+```php
+$vm->getUUID();
 ```
