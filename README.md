@@ -139,9 +139,7 @@ $vm->clonevm($name);
 This method gets the power status of the selected Virtual Machine 
 
 ```php
-
 $vm->getPowerState();
-
 ```
 
 ##### UUID of VM
@@ -151,4 +149,56 @@ This method obtains the UUID of the selected Virtual Machine.
 
 ```php
 $vm->getUUID();
+```
+
+##### Consoles of VM
+
+This method returns the all console instances of  selected Virtual Machine.
+The console istance allows you to have  and manage a SSH or RDP session of Virtual Machine
+
+
+```php
+$vm->getConsoles()
+```
+##### UUID of VM Console
+
+This method returns the UUID of selected Virtual Machine's console.
+The UUID is very usefull for console istance mangement.
+
+```php
+$vm->getConsolesUUID($console)
+```
+
+##### Guest Metrics of VM
+
+This method returns the guest metrics of selected Virtual Machine.
+
+*in the future, i will write an example*
+
+```php
+$vm->getGuestMetrics()
+```
+
+
+##### Metrics of VM
+
+This method returns the metrics of selected Virtual Machine.
+
+*as for guest metrics, in the future, i will write an example*
+
+```php
+$vm->getMetrics()
+```
+##### Metrics of VM
+
+This method returns the current stats of the running selected Virtual Machine.
+With this method, you can obtain the stats of  CPUs, RAM and DISK I/O  in ***realtime***!
+
+However, this method return an response object that contains a XML string in the ***value*** attribute.
+Inside this XML string you find the required statistics.
+
+*as for last two methods, in the future, i will write an example. Also, i would to show you how to obtain a realtime stats graph, stay tuned ;)*
+
+```php
+$vm->getStats()
 ```
