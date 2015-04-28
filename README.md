@@ -189,7 +189,7 @@ This method returns the metrics of selected Virtual Machine.
 ```php
 $vm->getMetrics()
 ```
-##### Metrics of VM
+##### Statistics of VM 
 
 This method returns the current stats of the running selected Virtual Machine.
 With this method, you can obtain the stats of  CPUs, RAM and DISK I/O  in ***realtime***!
