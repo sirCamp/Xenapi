@@ -130,9 +130,9 @@ class XenVirtualMachine extends XenElement {
 	}
 
 	/**
-	 * Clone a VM by passing her uuid.
+	 * Get the UUID of a VM .
 	 *
-	 * @param mixed $VM the uuid of VM and $name the name of cloned vM
+	 * @param 
 	 *
 	 * @return mixed
 	 */
@@ -141,9 +141,9 @@ class XenVirtualMachine extends XenElement {
 	}
 	
 	/**
-	 * Clone a VM by passing her uuid.
+	 * Get the consoles instances a VM by passing her uuid.
 	 *
-	 * @param mixed $VM the uuid of VM and $name the name of cloned vM
+	 * @param
 	 *
 	 * @return mixed
 	 */
@@ -152,13 +152,13 @@ class XenVirtualMachine extends XenElement {
 	}
 
 	/**
-	 * Clone a VM by passing her uuid.
+	 * Get the console UIID of a VM by passing her uuid.
 	 *
-	 * @param mixed $VM the uuid of VM and $name the name of cloned vM
+	 * @param mixed $CN the uuid of conosle of VM
 	 *
 	 * @return mixed
 	 */
-	function getConsolesUUID($connection,$CN){
+	function getConsoleUUID($CN){
 		return $this->getXenconnection()->console__get_uuid($CN);
 	}
 

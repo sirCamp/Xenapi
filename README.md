@@ -3,6 +3,17 @@
 A Xen PHP API for managment of Hypervisor and Citrix Server and their Virtual Machines for PHP, it works on Laravel 4, Laravel 5, Codeigniter and other PHP framework.
 Before install this library make sure to have installed *xmlrpc php* module
 
+## Table Of Contents
+
+1. [Installation](#installation)
+2. [Documentation](#documentation)
+	+ [Namespace Import](#namespace-import)
+	+ [Connect With an Hypervisor](#connect-with-an-hypervisor)
+	+ [Get Virtual Machine](#get-virtual-machine)
+	+ [Virtual Machine Managment](#virtual-machine-managment)
+	+ [Response Management](#response-management)
+	+ [Exceptions](#exceptions)
+
 ## Installation :
 
 Package is available on [Packagist](https://packagist.org/packages/sircamp/xenapi),
@@ -43,7 +54,7 @@ This serves to have a virtual machine (by the hostname) that is on selected hype
 $vm = $xen->getVMByNameLabel("virtual.machine.hostanme");
 ```
 
-#### Virtual Machine Managment
+#### Virtual Machine Management
 
 Now you have the an XenVirtualMachine object that map your virtual machine, so we are ready to manage the VM
 
@@ -166,12 +177,20 @@ This method returns the UUID of selected Virtual Machine's console.
 The UUID is very usefull for console istance mangement.
 
 ```php
-$vm->getConsolesUUID($console)
+$vm->getConsoleUUID($console)
 ```
 
 ##### Guest Metrics of VM
 
 This method returns the guest metrics of selected Virtual Machine.
+This metrics contains:
+
++ uuid
++ os_version (name, uname, distro, relase version)
++ memory
++ disks
++ networks
++ other
 
 *in the future, i will write an example*
 
@@ -183,6 +202,12 @@ $vm->getGuestMetrics()
 ##### Metrics of VM
 
 This method returns the metrics of selected Virtual Machine.
+This metrics contains:
+
++ uuid
++ memory_actual
++ VCPUs_number
++ VCPUs_utilisation
 
 *as for guest metrics, in the future, i will write an example*
 
@@ -201,4 +226,78 @@ Inside this XML string you find the required statistics.
 
 ```php
 $vm->getStats()
+```
+##### Disks Total Space of VM
+
+This method returns the total amount of Virtual Machine's Disks space.
+Actually this method return the total in bytes.
+
+```php
+$vm->getDiskSpace()
+```
+Also, you can pass an argument:
+
+```php
+$format = "GB";
+$vm->getDiskSpace($format);
+```
+This allow you to have the disk space in the format as you want.
+**NB: this feature is not yet implemented**
+
+##### Name of VM
+This method return the name of VM
+
+```php
+$vm->getName()
+```
+#### Response Management
+
+Every method return an istance of *XenResponse* class.
+This object contains three attributes:
+
++ Value
++ Status
++ ErrorDescription
+
+##### Value attribute
+This attribute contains the value of response, sach as message, XML string or something else.
+
+use this method to obtain it:
+```php
+$response = $vm->hardReboot();
+$response->getValue();
+```
+##### Status attribute
+This attribute contains the status of response.
+If status is **Success** the request is OK.
+Otherwise is request is KO, use this for check the result of your operations
+
+use this method to obtain it:
+```php
+$response = $vm->hardReboot();
+$response->getStatus();
+```
+##### ErrorDescription attribute
+This attribute contains message of KO response.
+Just take the value of this attribute and check why the response isn't OK.
+
+For example if your connection credentials are wrong:
+```php
+$console = "wrong_console";
+$response = $vm->getConsolesUUID($console);
+$response->getStatus(); //return Failure
+$response->getErrorDescription(); // return an array with some error message
+```
+
+#### Exceptions
+
+This is exaplained the custom excetions
+
+##### XenConnectionException
+
+This exception is launched when you try to connect to a hypervisor with a wrong credentials.
+
+To catch this exception, remember to use the namespace of this class:
+```php
+use Sircamp\Xenapi\Exception\XenConnectionException as XenConnectionException;
 ```
