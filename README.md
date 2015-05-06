@@ -3,6 +3,14 @@
 A Xen PHP API for managment of Hypervisor and Citrix Server and their Virtual Machines for PHP, it works on Laravel 4, Laravel 5, Codeigniter and other PHP framework.
 Before install this library make sure to have installed *xmlrpc php* module
 
+API in PHP to communicate with Xen Server . 
+This packages is available on Composer's repositories .
+The package Allows to completely Manage an Hypervisvor Citrix .
+With this , you can clone , start , stop and reboot any VPS of your Hypervisor
+Also, this APi allow you toi have a realtime graph of your Hypervisor's VPS!
+I've create the Method that obtain XML realtime stats of Machine and convert it to RRD file, needed for the FlotJS library to draw the graph.
+This API is available for all the major PHP Frameworks, such as Laravel, Symfony or Codeigniter.
+
 ## Table Of Contents
 
 1. [Installation](#installation)
