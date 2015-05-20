@@ -319,6 +319,58 @@ class XenVirtualMachine extends XenElement {
 
         return $this;
     }
+
+    /**
+     * Snapshots the specified VM, making a new VM. 
+     * Snapshot automatically exploits the capabilities of the underlying storage repository 
+     * in which the VM’s disk images are stored
+     *
+     * @param string $name the name of snapshot
+     *
+     * @return XenResponse $response
+     */
+    public function snapshot($name){
+		return $this->getXenconnection()->VM__snapshot($this->getVmId(),$name);
+	}
+
+	//TOFIX
+	/**
+	 * Snapshots the specified VM with quiesce, making a new VM. 
+	 * Snapshot automatically exploits the capabilities of the underlying 
+	 * storage repository in which the VM’s disk images are stored
+	 *
+	 * @param string $name the name of snapshot
+	 *
+	 * @return XenResponse $response
+	 */
+	public function snapshotWithQuiesce($name){
+		return $this->getXenconnection()->VM__snapshot_with_quiesce($this->getVmId(),$name);
+	}
+
+	/**
+	 * Copied the specified VM, making a new VM. Unlike clone, copy does not exploits the capabilities
+	 * of the underlying storage repository in which the VM’s disk images are stored. Instead, copy
+	 * guarantees that the disk images of the newly created VM will be ’full disks’ - i.e. not part of a
+	 * CoW chain. This function can only be called when the VM is in the Halted State
+	 *
+	 * @param string $name the name of new vm
+	 *
+	 * @return XenResponse $response
+	 */
+	public function copy($name){
+		return $this->getXenconnection()->VM__copy($this->getVmId(),$name,"");
+	}
+
+	/**
+	 * Reverts the specified VM to a previous state
+	 *
+	 * @param string $name the name of snapshot
+	 *
+	 * @return XenResponse $response
+	 */
+	public function revert($snapshotID){
+		return $this->getXenconnection()->VM__revert($this->getVmId(),$snapshotID);
+	}
 }
 ?>
 	
