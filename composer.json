@@ -14,7 +14,6 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*",
         "respect/validation": "0.8.*",
         "guzzlehttp/guzzle": "~5.0"
     },
