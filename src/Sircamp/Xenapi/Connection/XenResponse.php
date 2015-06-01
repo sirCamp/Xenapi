@@ -40,7 +40,7 @@ class XenResponse {
      *
      * @return self
      */
-    private function _setValue($Value)
+    public function _setValue($Value)
     {
         $this->Value = $Value;
 
