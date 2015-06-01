@@ -457,7 +457,17 @@ class XenHost extends XenElement {
 	 * @return XenResponse $response
 	 */
 	public function getResidentVMs(){
-		return $this->getXenconnection()->host__get_resident_VMs($this->getHostId());
+		$response = $this->getXenconnection()->host__get_resident_VMs($this->getHostId());
+		$VMs = array();
+		if($response->getValue() != ""){
+			foreach ($response->getValue() as $key => $vm) {
+				$xenVM = new XenVirtualMachine($this->getXenconnection(),null,$vm);
+				$name = $xen->getNameLabel()->getValue();
+				array_push($VMs,new XenVirtualMachine($this->getXenconnection(),$name,$vm));
+			}
+			$response->_setValue($VMs);
+		}
+		return $response;
 	}
 
 	/**

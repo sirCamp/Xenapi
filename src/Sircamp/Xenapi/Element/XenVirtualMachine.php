@@ -725,6 +725,18 @@ class XenVirtualMachine extends XenElement {
 	public function removeFromOtherConfig($key){
 		return $this->getXenconnection()->VM__remove_from_other_config($this->getVmId(),$key);
 	}
+
+	/**
+	 * Get name label VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getNameLabel(){
+		return $this->getXenconnection()->VM__get_name_label($this->getVmId());
+	}
+
 }
 ?>
 	

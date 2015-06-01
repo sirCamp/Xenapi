@@ -18,7 +18,6 @@ class XenResponse {
 			$property->setAccessible( true );
 			$property->setValue($this, $argument);
 			
-			//return $this->Value;
 		}
 
 	}
