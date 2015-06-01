@@ -464,6 +464,18 @@ class XenVirtualMachine extends XenElement {
 	}
 
 	/**
+	 * Get the snapshot info field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getSnapshotInfo($name){
+		return $this->getXenconnection()->VM__get_snapshot_info($this->getVmId());
+	}
+	
+
+	/**
 	 * Copied the specified VM, making a new VM. Unlike clone, copy does not exploits the capabilities
 	 * of the underlying storage repository in which the VM’s disk images are stored. Instead, copy
 	 * guarantees that the disk images of the newly created VM will be ’full disks’ - i.e. not part of a
@@ -477,6 +489,18 @@ class XenVirtualMachine extends XenElement {
 		return $this->getXenconnection()->VM__copy($this->getVmId(),$name,"");
 	}
 
+
+	/**
+	 * Destroy the specified VM. The VM is completely removed from the system. This function can
+	 * only be called when the VM is in the Halted State.
+	 *
+	 * @param
+	 *
+	 * @return XenResponse $response
+	 */
+	public function destroy(){
+		return $this->getXenconnection()->VM__destroy($this->getVmId());
+	}
 	/**
 	 * Reverts the specified VM to a previous state
 	 *
@@ -522,6 +546,28 @@ class XenVirtualMachine extends XenElement {
 	 */
 	public function setShutdownDelay($seconds){
 		return $this->getXenconnection()->VM__set_shutdown_delay($this->getVmId(),$seconds);
+	}
+
+	/**
+	 * Get the start delay field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getStartDelay(){
+		return $this->getXenconnection()->VM__get_start_delay($this->getVmId());
+	}
+	
+	/**
+	 * Get the shutdown delay field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getShutdownDelay(){
+		return $this->getXenconnection()->VM__get_shutdown_delay($this->getVmId());
 	}
 
 	/**
@@ -604,9 +650,75 @@ class XenVirtualMachine extends XenElement {
 	public function getResidentOn(){
 		return $this->getXenconnection()->VM__get_resident_on($this->getVmId());
 	}
+
+	/**
+	 * Get the platform field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getPlatform(){
+		return $this->getXenconnection()->VM__get_platform($this->getVmId());
+	}
+
+
+	/**
+	 * Set the platform field of the given VM.
+	 *
+	 * @param $value array
+	 *
+	 * @return XenResponse $response
+	 */
+	public function setPlatform($value = array()){
+		return $this->getXenconnection()->VM__set_platform($this->getVmId(),$value);
+	}	
 	
+
+	/**
+	 * Get the other config field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getOtherConfig(){
+		return $this->getXenconnection()->VM__get_other_config($this->getVmId());
+	}
 	
+	/**
+	 * Set the other config field of the given VM.
+	 *
+	 * @param $value array
+	 *
+	 * @return XenResponse $response
+	 */
+	public function setOtherConfig($array = array()){
+		return $this->getXenconnection()->VM__set_other_config($this->getVmId(),$array);
+	}
+
+	/**
+	 * Add the given key-value pair to the other config field of the given vm.
+	 *
+	 * @param $key string
+	 *
+	 * @return XenResponse $response
+	 */
+	public function addToOtherConfig($key,$value){
+		return $this->getXenconnection()->VM__add_to_other_config($this->getVmId(),$key,$value);
+	}
 	
+	/**
+	 * Remove the given key and its corresponding value from the other config field of the given vm. If
+     * the key is not in that Map, then do nothing.
+	 *
+	 * @param $key string
+	 *
+	 * @return XenResponse $response
+	 */
+	public function removeFromOtherConfig($key){
+		return $this->getXenconnection()->VM__remove_from_other_config($this->getVmId(),$key);
+	}
 }
 ?>
 	

@@ -2,6 +2,7 @@
 use Respect\Validation\Validator as Validator;
 use GuzzleHttp\Client as Client;
 use Sircamp\Xenapi\Element\XenVirtualMachine as  XenVirtualMachine;
+use Sircamp\Xenapi\Element\XenHost as XenHost;
 use Sircamp\Xenapi\Connection\XenConnection as  XenConnection;
 use Sircamp\Xenapi\Connection\XenResponse as  XenResponse;
 use Sircamp\Xenapi\Exception as  XenConnectionException;
@@ -47,6 +48,17 @@ class Xen {
 		return new XenVirtualMachine($this->xenconnection,$name,$response->getValue()[0]);
 	}
 
+	/**
+	 * Get HOST from name.
+	 *
+	 * @param mixed $name the name of HOST
+	 *
+	 * @return mixed
+	 */
+	public function getHOSTByNameLabel($name){
+		$response = new XenResponse($this->xenconnection->HOST__get_by_name_label($name));
+		return new XenHost($this->xenconnection,$name,$response->getValue()[0]);
+	}
 	
 
 }
