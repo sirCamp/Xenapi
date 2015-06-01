@@ -19,6 +19,8 @@ This API is available for all the major PHP Frameworks, such as Laravel, Symfony
 	+ [Connect With an Hypervisor](#connect-with-an-hypervisor)
 	+ [Get Virtual Machine](#get-virtual-machine)
 	+ [Virtual Machine Managment](#virtual-machine-managment)
+	+ [Get Host](#get-host)
+	+ [Host Management](#host-management)
 	+ [Response Management](#response-management)
 	+ [Exceptions](#exceptions)
 
@@ -59,8 +61,9 @@ $xen = new Xen($ip,$user,$password); //OK now you have an open connection to Hyp
 This serves to have a virtual machine (by the hostname) that is on selected hypervisor :
 
 ```php
-$vm = $xen->getVMByNameLabel("virtual.machine.hostanme");
+$vm = $xen->getVMByNameLabel("virtual.machine.hostaname");
 ```
+
 
 #### Virtual Machine Management
 
@@ -258,6 +261,55 @@ This method return the name of VM
 ```php
 $vm->getName()
 ```
+
+#### Get Host
+
+This serves to obtain the target host (by the hostname) :
+
+```php
+$host = $xen->getHOSTByNameLabel("host.machine.hostaname");
+```
+
+#### Host Management
+
+Now you have the an XenHost object that map your hypervisor, so we are ready to manage the HOST
+
+#####Disable HOST
+Puts the host into a state in which no new VMs can be started. Currently active VMs on the host continue to execute.
+```php
+$host->disable()
+```
+#####Enable HOST
+Puts the host into a state in which  new VMs can be started.
+```php
+$host->enable()
+```
+#####Shutdown HOST
+Shutdown the host. (This function can only be called if there are no currently running VMs on the host and it is disabled.).
+
+```php
+$host->shutdown()
+```
+#####Reboot HOST
+Reboot the host. (This function can only be called if there are no currently running VMs on the host and it is disabled.).
+
+```php
+$host->reboot()
+```
+#####Dmesg of HOST
+Get the host xen dmesg.
+
+```php
+$host->dmesg()
+```
+#####DmesgClear of HOST
+Get the host xen dmesg, and clear the buffer
+
+```php
+$host->dmesgClear()
+```
+
+
 #### Response Management
 
 Every method return an istance of *XenResponse* class.
