@@ -46,7 +46,7 @@ class XenNetwork extends XenElement {
 	 * @return mixed
 	 */
 	public function getAll(){
-		return $this->getXenconnection()->NETWORK__get_all();
+		return $this->getXenconnection()->network__get_all();
 	}
 }
 ?>

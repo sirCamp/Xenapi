@@ -56,7 +56,7 @@ class Xen {
 	 * @return mixed
 	 */
 	public function getHOSTByNameLabel($name){
-		$response = new XenResponse($this->xenconnection->HOST__get_by_name_label($name));
+		$response = new XenResponse($this->xenconnection->host__get_by_name_label($name));
 		return new XenHost($this->xenconnection,$name,$response->getValue()[0]);
 	}
 	
