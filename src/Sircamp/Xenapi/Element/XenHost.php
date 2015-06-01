@@ -462,7 +462,7 @@ class XenHost extends XenElement {
 		if($response->getValue() != ""){
 			foreach ($response->getValue() as $key => $vm) {
 				$xenVM = new XenVirtualMachine($this->getXenconnection(),null,$vm);
-				$name = $xen->getNameLabel()->getValue();
+				$name = $xenVM->getNameLabel()->getValue();
 				array_push($VMs,new XenVirtualMachine($this->getXenconnection(),$name,$vm));
 			}
 			$response->_setValue($VMs);
