@@ -81,7 +81,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return mixed
 	 */
-	public function resume_on($hostRef = null){
+	public function resumeOn($hostRef = null){
 		if($hostRef == null){
 			throw new \IllegalArgumentException("hostRef must be not NULL", 1);
 			
@@ -648,7 +648,13 @@ class XenVirtualMachine extends XenElement {
 	 * @return XenResponse $response
 	 */
 	public function getResidentOn(){
-		return $this->getXenconnection()->VM__get_resident_on($this->getVmId());
+		$xenHost = null;
+		$response = $this->getXenconnection()->VM__get_resident_on($this->getVmId());
+		if($response['Value'] != ""){
+			$xenHost = new XenHost($this->xenconnection,null,$response['Value']);
+		}
+		$response['Value'] = $xenHost;
+		return $response;
 	}
 
 	/**
@@ -707,7 +713,7 @@ class XenVirtualMachine extends XenElement {
 	public function addToOtherConfig($key,$value){
 		return $this->getXenconnection()->VM__add_to_other_config($this->getVmId(),$key,$value);
 	}
-	
+
 	/**
 	 * Remove the given key and its corresponding value from the other config field of the given vm. If
      * the key is not in that Map, then do nothing.
