@@ -31,7 +31,7 @@ class XenHost extends XenElement {
      *
      * @return self
      */
-    private function _setName($name)
+    public function _setName($name)
     {
         $this->name = $name;
 
@@ -55,7 +55,7 @@ class XenHost extends XenElement {
      *
      * @return self
      */
-    private function _setHostId($hostId)
+    public function _setHostId($hostId)
     {
         $this->hostId = $hostId;
 
@@ -70,7 +70,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */
-    private function disable(){
+    public function disable(){
         
         return $this->getXenconnection()->host__disable($this->getHostId());      
     }
@@ -82,7 +82,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */
-    private function enable(){
+    public function enable(){
         
         return $this->getXenconnection()->host__enable($this->getHostId());      
     }
@@ -96,7 +96,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */
-    private function shutdown(){
+    public function shutdown(){
         
         return $this->getXenconnection()->host__shutdown($this->getHostId());      
     }
@@ -109,7 +109,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */
-    private function reboot(){
+    public function reboot(){
         
         return $this->getXenconnection()->host__reboot($this->getHostId());      
     } 
@@ -122,7 +122,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */
-    private function dmesg(){
+    public function dmesg(){
         
         return $this->getXenconnection()->host__dmesg($this->getHostId());      
     }
@@ -134,7 +134,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */
-    private function dmesgClear(){
+    public function dmesgClear(){
         
         return $this->getXenconnection()->host__dmesg_clear($this->getHostId());      
     }
@@ -146,7 +146,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */
-    private function getLog(){
+    public function getLog(){
         
         return $this->getXenconnection()->host__get_log($this->getHostId());      
     }
@@ -158,7 +158,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function listMethods(){
+    public function listMethods(){
         
         return $this->getXenconnection()->host__list_methods();      
     }
@@ -171,7 +171,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function licenseApply($license = ""){
+    public function licenseApply($license = ""){
         
         return $this->getXenconnection()->host__license_apply($this->getHostId(),$license);      
     }
@@ -184,7 +184,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function assertCanEvacuate(){
+    public function assertCanEvacuate(){
         
         return $this->getXenconnection()->host__assert_can_evacuate($this->getHostId());      
     } 
@@ -196,7 +196,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function evacuate(){
+    public function evacuate(){
         
         return $this->getXenconnection()->host__evacuate($this->getHostId());      
     } 
@@ -209,7 +209,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function  getServertime(){
+    public function  getServertime(){
         
         return $this->getXenconnection()->host__get_servertime($this->getHostId());      
     } 
@@ -221,7 +221,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function getServerLocaltime(){
+    public function getServerLocaltime(){
         
         return $this->getXenconnection()->host__get_server_localtime($this->getHostId());      
     }
@@ -233,7 +233,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function getServerCertificate(){
+    public function getServerCertificate(){
         
         return $this->getXenconnection()->host__get_server_certificate($this->getHostId());      
     }
@@ -248,7 +248,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function applyEdition($edition,$force = false){
+    public function applyEdition($edition,$force = false){
         
         return $this->getXenconnection()->host__apply_edition($this->getHostId(),$edition,$force);      
     }
@@ -261,7 +261,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function refreshPackInfo(){
+    public function refreshPackInfo(){
         
         return $this->getXenconnection()->host__refresh_pack_info($this->getHostId());      
     }
@@ -274,7 +274,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function enableLocalStorageCaching($srRef){
+    public function enableLocalStorageCaching($srRef){
         
         return $this->getXenconnection()->host__enable_local_storage_caching($this->getHostId(),$srRef);      
     }
@@ -288,7 +288,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function disableLocalStorageCaching(){
+    public function disableLocalStorageCaching(){
         
         return $this->getXenconnection()->host__disable_local_storage_caching($this->getHostId());      
     }    
@@ -300,7 +300,7 @@ class XenHost extends XenElement {
      *
      * @return mixed
      */  
-    private function migrateReceive($networkRef, $features = array()){
+    public function migrateReceive($networkRef, $features = array()){
         
         return $this->getXenconnection()->host__migrate_receive($this->getHostId(),$networkRef,$features);      
     }      
