@@ -650,10 +650,10 @@ class XenVirtualMachine extends XenElement {
 	public function getResidentOn(){
 		$xenHost = null;
 		$response = $this->getXenconnection()->VM__get_resident_on($this->getVmId());
-		if($response['Value'] != ""){
-			$xenHost = new XenHost($this->xenconnection,null,$response['Value']);
+		if($response->getValue() != ""){
+			$xenHost = new XenHost($this->xenconnection,null,$response->getValue());
 		}
-		$response['Value'] = $xenHost;
+		$response->setValue($xenHost);
 		return $response;
 	}
 
