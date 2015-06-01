@@ -15,6 +15,19 @@ class XenVirtualMachine extends XenElement {
 		$this->vmId = $vmId;
 	}
 
+
+	
+	/**
+	 * Return a list of all the VMs known to the system.
+	 *
+	 * @param 
+	 *
+	 * @return mixed
+	 */
+	public function getAll(){
+		return $this->getXenconnection()->VM__get_all();
+	}	
+
 	/**
 	 * Hard Reboot a VM by passing her uuid.
 	 *
@@ -106,6 +119,23 @@ class XenVirtualMachine extends XenElement {
 	public function migrateSend($dest,$live = false,$vdiMap,$vifMap,$options){
 		return $this->getXenconnection()->VM__migrate_send($this->getVmId(),$dest,$live,$vdiMap,$vifMap,$options);
 	}
+
+
+	/**
+	 * Assert whether a VM can be migrated to the specified destination.
+	 *
+	 * @param mixed $VM the uuid of VM, 
+	 *		  $def The result of a Host.migrate receive call.
+	 *		  $live The Live migration
+	 *		  $vdiMap of source VDI to destination SR
+	 *		  $vifMap of source VIF to destination network
+	 *		  $optionsMap  Extra configuration operations
+	 * @return mixed
+	 */
+	public function assertCanMigrate($dest,$live = false,$vdiMap,$vifMap,$options){
+		return $this->getXenconnection()->VM__assert_can_migrate($this->getVmId(),$dest,$live,$vdiMap,$vifMap,$options);
+	}
+
 	/**
 	 * Clean Reboot a VM by passing her uuid.
 	 *
@@ -470,6 +500,113 @@ class XenVirtualMachine extends XenElement {
 	public function checkpoint($name){
 		return $this->getXenconnection()->VM__checkpoint($this->getVmId(),$name);
 	}
+
+
+	/**
+	 * Set this VM’s start delay in seconds.
+	 *
+	 * @param int seconds of delay
+	 *
+	 * @return XenResponse $response
+	 */
+	public function setStartDelay($seconds){
+		return $this->getXenconnection()->VM__set_start_delay($this->getVmId(),$seconds);
+	}
+	
+	/**
+	 * Set this VM’s start delay in seconds.
+	 *
+	 * @param int seconds of delay
+	 *
+	 * @return XenResponse $response
+	 */
+	public function setShutdownDelay($seconds){
+		return $this->getXenconnection()->VM__set_shutdown_delay($this->getVmId(),$seconds);
+	}
+
+	/**
+	 * Get the current operations field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getCurrentOperations(){
+		return $this->getXenconnection()->VM__get_current_operations($this->getVmId());
+	}
+
+	/**
+	 * Get the allowed operations field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getAllowedOperations(){
+		return $this->getXenconnection()->VM__get_allowed_operations($this->getVmId());
+	}
+
+
+
+	/**
+	 * Get the name/description field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getNameDescription(){
+		return $this->getXenconnection()->VM__get_name_description($this->getVmId());
+	}
+
+	/**
+	 * Set the name/description field of the given VM.
+	 *
+	 * @param string name
+	 *
+	 * @return XenResponse $response
+	 */
+	public function setNameDescription($name){
+		return $this->getXenconnection()->VM__set_name_description($this->getVmId(),$name);
+	}
+
+	/**
+	 * Get the is a template field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getIsATemplate(){
+		return $this->getXenconnection()->VM__get_is_a_template($this->getVmId());
+	}
+
+	/**
+	 * Set the is a template field of the given VM.
+	 *
+	 * @param bool $template
+	 *
+	 * @return XenResponse $response
+	 */
+	public function setIsATemplate($template){
+		return $this->getXenconnection()->VM__set_is_a_template($this->getVmId(),$template);
+	}
+
+
+
+	/**
+	 * Get the resident on field of the given VM.
+	 *
+	 * @param 
+	 *
+	 * @return XenResponse $response
+	 */
+	public function getResidentOn(){
+		return $this->getXenconnection()->VM__get_resident_on($this->getVmId());
+	}
+	
+	
+	
 }
 ?>
 	
