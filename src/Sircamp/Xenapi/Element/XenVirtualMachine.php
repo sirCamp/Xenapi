@@ -652,6 +652,8 @@ class XenVirtualMachine extends XenElement {
 		$response = $this->getXenconnection()->VM__get_resident_on($this->getVmId());
 		if($response->getValue() != ""){
 			$xenHost = new XenHost($this->getXenconnection(),null,$response->getValue());
+			$name = $xenHost->getNameLabel()->getValue();
+			$xenHost->_setName($name);
 		}
 		$response->_setValue($xenHost);
 		return $response;
