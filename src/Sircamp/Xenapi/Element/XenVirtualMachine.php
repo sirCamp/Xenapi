@@ -61,6 +61,52 @@ class XenVirtualMachine extends XenElement {
 	}
 
 	/**
+	 * Awaken the specified VM and resume it on a particular Host. This can only be called when the
+	 * specified VM is in the Suspended state.
+	 *
+	 * @param mixed $VM the uuid of VM, $hostRef the ref of host whic resume the VM
+	 *
+	 * @return mixed
+	 */
+	public function resume_on($hostRef = null){
+		if($hostRef == null){
+			throw new \IllegalArgumentException("hostRef must be not NULL", 1);
+			
+		}
+		return $this->getXenconnection()->VM__resume_on($this->getVmId(),$hostRef);
+	}
+
+	/**
+	 * Migrate a VM to another Host. This can only be called when the specified VM is in the Running
+	 * state.
+	 *
+	 * @param mixed $VM the uuid of VM, $hostRef the target host
+	 *		 $optionsMap  Extra configuration operations
+	 * @return mixed
+	 */
+	
+	public function poolMigrate($hostRef = null, $optionsMap = array()){
+
+		return $this->getXenconnection()->VM__pool_migrate($this->getVmId(),$hostRef,$optionsMap);
+	}
+
+	/**
+	 * Migrate the VM to another host. This can only be called when the specified VM is in the Running
+	 * state.
+	 *
+	 * @param mixed $VM the uuid of VM, 
+	 *		  $def The result of a Host.migrate receive call.
+	 *		  $live The Live migration
+	 *		  $vdiMap of source VDI to destination SR
+	 *		  $vifMap of source VIF to destination network
+	 *		  $optionsMap  Extra configuration operations
+	 * @return mixed
+	 */
+
+	public function migrateSend($dest,$live = false,$vdiMap,$vifMap,$options){
+		return $this->getXenconnection()->VM__migrate_send($this->getVmId(),$dest,$live,$vdiMap,$vifMap,$options);
+	}
+	/**
 	 * Clean Reboot a VM by passing her uuid.
 	 *
 	 * @param mixed $VM the uuid of VM
@@ -109,13 +155,40 @@ class XenVirtualMachine extends XenElement {
 	/**
 	 * Start a VM by passing her uuid.
 	 *
-	 * @param mixed $VM the uuid of VM
+	 * @param mixed $VM the uuid of VM,
+	 *		  $pause Instantiate VM in paused state if set to true.
+	 *		  Attempt to force the VM to start. If this flag
+	 *		  is false then the VM may fail pre-boot safety
+     *         checks (e.g. if the CPU the VM last booted
+	 *		  on looks substantially different to the current one)
 	 *
 	 * @return mixed
 	 */
-	public function start( $pause = false, $force = true){
+	public function start($pause = false, $force = true){
 
 		return $this->getXenconnection()->VM__start($this->getVmId(),$pause,$force);
+	}
+	
+	/**
+	 * Start the specified VM on a particular host. This function can only be called with the VM is in
+	 * the Halted State.
+	 *
+	 * @param mixed $VM the uuid of VM, $hostRef the Host on which to start the VM
+	 *		  $pause Instantiate VM in paused state if set to true.
+	 *		  Attempt to force the VM to start. If this flag
+	 *		  is false then the VM may fail pre-boot safety
+     *         checks (e.g. if the CPU the VM last booted
+	 *		  on looks substantially different to the current one)
+	 *
+	 * @return mixed
+	 */
+	public function startOn($hostRef, $pause = false, $force = true){
+
+		if($hostRef == null){
+			throw new \IllegalArgumentException("The where you want start new machine, must be set!", 1);
+			
+		}
+		return $this->getXenconnection()->VM__start_on($this->getVmId(),$hostRef,$pause,$force);
 	}
 
 	/**
@@ -172,7 +245,20 @@ class XenVirtualMachine extends XenElement {
 	function getPowerState(){
 		return $this->getXenconnection()->VM__get_power_state($this->getVmId());
 	}
-
+	
+	/**
+	 * Reset the power-state of the VM to halted in the database only. (Used to recover from slave failures
+	 * in pooling scenarios by resetting the power-states of VMs running on dead slaves to halted.) This
+	 *  is a potentially dangerous operation; use with care.
+	 *
+	 * @param mixed $VM the uuid of VM and $name the name of cloned vM
+	 *
+	 * @return mixed
+	 */
+	function powerStateReset(){
+		return $this->getXenconnection()->VM__power_state_reset($this->getVmId());
+	}
+	
 
 	/**
 	 * Get the VM guest metrics by passing her uuid.
@@ -370,6 +456,19 @@ class XenVirtualMachine extends XenElement {
 	 */
 	public function revert($snapshotID){
 		return $this->getXenconnection()->VM__revert($this->getVmId(),$snapshotID);
+	}
+
+	/**
+	 * Checkpoints the specified VM, making a new VM. Checkpoint automatically exploits the capabil-
+	 * ities of the underlying storage repository in which the VM’s disk images are stored (e.g. Copy on
+	 * Write) and saves the memory image as well
+	 *
+	 * @param string $name the name of new VPS
+	 *
+	 * @return XenResponse $response
+	 */
+	public function checkpoint($name){
+		return $this->getXenconnection()->VM__checkpoint($this->getVmId(),$name);
 	}
 }
 ?>
