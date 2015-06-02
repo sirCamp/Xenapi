@@ -82,11 +82,20 @@ class XenVirtualMachine extends XenElement {
 	 * @return mixed
 	 */
 	public function resumeOn($hostRef = null){
+		$hostRefString = "";
 		if($hostRef == null){
 			throw new \IllegalArgumentException("hostRef must be not NULL", 1);
 			
 		}
-		return $this->getXenconnection()->VM__resume_on($this->getVmId(),$hostRef);
+		else{
+			if(is_object($hostRef)){
+				$hostRefString = $hostRef->getHostId();
+			}
+			else{
+				$hostRefString = $hostRef;
+			}
+		}
+		return $this->getXenconnection()->VM__resume_on($this->getVmId(),$hostRefString);
 	}
 
 	/**
@@ -99,8 +108,20 @@ class XenVirtualMachine extends XenElement {
 	 */
 	
 	public function poolMigrate($hostRef = null, $optionsMap = array()){
-
-		return $this->getXenconnection()->VM__pool_migrate($this->getVmId(),$hostRef,$optionsMap);
+		$hostRefString = "";
+		if($hostRef == null){
+			throw new \IllegalArgumentException("hostRef must be not NULL", 1);
+			
+		}
+		else{
+			if(is_object($hostRef)){
+				$hostRefString = $hostRef->getHostId();
+			}
+			else{
+				$hostRefString = $hostRef;
+			}
+		}
+		return $this->getXenconnection()->VM__pool_migrate($this->getVmId(),$hostRefString,$optionsMap);
 	}
 
 	/**
@@ -116,7 +137,7 @@ class XenVirtualMachine extends XenElement {
 	 * @return mixed
 	 */
 
-	public function migrateSend($dest,$live = false,$vdiMap,$vifMap,$options){
+	public function migrateSend($dest,$vdiMap,$vifMap,$options,$live = false){
 		return $this->getXenconnection()->VM__migrate_send($this->getVmId(),$dest,$live,$vdiMap,$vifMap,$options);
 	}
 
@@ -132,7 +153,7 @@ class XenVirtualMachine extends XenElement {
 	 *		  $optionsMap  Extra configuration operations
 	 * @return mixed
 	 */
-	public function assertCanMigrate($dest,$live = false,$vdiMap,$vifMap,$options){
+	public function assertCanMigrate($dest,$vdiMap,$vifMap,$options,$live = false){
 		return $this->getXenconnection()->VM__assert_can_migrate($this->getVmId(),$dest,$live,$vdiMap,$vifMap,$options);
 	}
 
@@ -214,11 +235,21 @@ class XenVirtualMachine extends XenElement {
 	 */
 	public function startOn($hostRef, $pause = false, $force = true){
 
+		$hostRefString = "";
 		if($hostRef == null){
 			throw new \IllegalArgumentException("The where you want start new machine, must be set!", 1);
 			
 		}
-		return $this->getXenconnection()->VM__start_on($this->getVmId(),$hostRef,$pause,$force);
+		else{
+			if(is_object($hostRef)){
+				$hostRefString = $hostRef->getHostId();
+			}
+			else{
+				$hostRefString = $hostRef;
+			}
+		}
+
+		return $this->getXenconnection()->VM__start_on($this->getVmId(),$hostRefString,$pause,$force);
 	}
 
 	/**
@@ -470,7 +501,7 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @return XenResponse $response
 	 */
-	public function getSnapshotInfo($name){
+	public function getSnapshotInfo(){
 		return $this->getXenconnection()->VM__get_snapshot_info($this->getVmId());
 	}
 	
@@ -504,7 +535,7 @@ class XenVirtualMachine extends XenElement {
 	/**
 	 * Reverts the specified VM to a previous state
 	 *
-	 * @param string $name the name of snapshot
+	 * @param string $snapshotID the ID of snapshot
 	 *
 	 * @return XenResponse $response
 	 */
