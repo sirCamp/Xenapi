@@ -359,7 +359,7 @@ class XenVirtualMachine extends XenElement {
 		$user = $this->getXenconnection()->getUser();
 		$password = $this->getXenconnection()->getPassword();
 		$ip = $this->getXenconnection()->getUrl();
-		$uuid = $this->VMGetUUID($this->getVmId());
+		$uuid = $this->getUUID($this->getVmId());
 		
 		$url='http://'.$user.':'.$password.'@'.$ip.'/vm_rrd?uuid='.$uuid->getValue().'&start=1000000000‏';
 
