@@ -32,7 +32,12 @@ you can install it using [Composer](http://getcomposer.org).
 In the **require** key of **composer.json** file add the following:
 
 ```php
-"sircamp/xenapi": "2.0"
+"sircamp/xenapi": "2.1"
+```
+Or type this command from your project folder
+
+```bash
+composer require sircamp/xenapi
 ```
 
 ## Documentation: 
