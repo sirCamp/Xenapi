@@ -60,7 +60,17 @@ class Xen {
 		return new XenHost($this->xenconnection,$name,$response->getValue()[0]);
 	}
 	
-
+	/**
+	 * Simply Get the HOST data array, you must not know the host name label.
+	 *
+	 *
+	 * @return array
+	 */
+	public function getTheHOST(){
+		$response = new XenResponse($this->xenconnection->host__get_all());
+		$host = new XenResponse($this->xenconnection->host__get_record($response->getValue()[0]));
+		return $host->getValue();
+	}
 }
 
 ?>
