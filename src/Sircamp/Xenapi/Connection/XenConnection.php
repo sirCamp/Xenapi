@@ -148,7 +148,7 @@ class XenConnection {
         
         $response = $this->xenrpc_request($url, $this->xenrpc_method('session.login_with_password', array($user, $password, '1.3.1')));
         
-        if(Validator::arr()->validate($response) && Validator::key('Status', Validator::equals('Success'))->validate($response)){
+        if(Validator::arrayType()->validate($response) && Validator::key('Status', Validator::equals('Success'))->validate($response)){
            	
            	$this->_setAll($url,$response['Value'],$user,$password);
            	
@@ -172,7 +172,7 @@ class XenConnection {
     function xenrpc_parseresponse($response) {
         
         
-        if (!Validator::arr()->validate($response) && !Validator::key('Status')->validate($request)) {
+        if (!Validator::arrayType()->validate($response) && !Validator::key('Status')->validate($response)) {
 
             return new XenResponse($response);
         }
@@ -185,10 +185,10 @@ class XenConnection {
             
                if ($response['ErrorDescription'][0] == 'SESSION_INVALID'){
                    
-                   $response = $this->xenrpc_request($url, $this->xenrpc_method('session.login_with_password', 
-                               array($this->_user, $this->_password, '1.3.1')));
+                   $response = $this->xenrpc_request($this->url, $this->xenrpc_method('session.login_with_password',
+                               array($this->user, $this->password, '1.3.1')));
                    
-                   if(Validator::arr()->validate($response) && Validator::key('Status', Validator::equals('Success'))->validate($response)){
+                   if(Validator::arrayType()->validate($response) && Validator::key('Status', Validator::equals('Success'))->validate($response)){
                        $this->_setSessionId($response['Value']);
                    }
                    else {
@@ -272,7 +272,7 @@ class XenConnection {
 
     function __call($name, $args) {
         
-        if (!Validator::arr()->validate($args)) {
+        if (!Validator::arrayType()->validate($args)) {
             $args = array();
         }
         
