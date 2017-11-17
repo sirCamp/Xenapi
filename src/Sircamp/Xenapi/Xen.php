@@ -49,7 +49,7 @@ class Xen
 	 *
 	 * @return mixed
 	 */
-	public function getVMByNameLabel($name) : XenVirtualMachine
+	public function getVMByNameLabel($name): XenVirtualMachine
 	{
 		$response = new XenResponse($this->xenconnection->VM__get_by_name_label($name));
 

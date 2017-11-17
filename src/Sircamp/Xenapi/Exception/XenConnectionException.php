@@ -2,10 +2,12 @@
 
 use Exception;
 
-class XenConnectionException extends Exception {
-	
-	public function __construct($message,$code){
-		parent::__construct($message,$code);
+class XenConnectionException extends Exception
+{
+
+	public function __construct($message, $code)
+	{
+		parent::__construct($message, $code);
 	}
 }
 
